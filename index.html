@@ -12,7 +12,6 @@
 
             Office.initialize = function (reason) {
                 $(document).ready(function () {
-                    debugger;
                     sendHeadersRequest();
                 });
             }
@@ -67,11 +66,12 @@ function sendHeadersRequest() {
     try {
         mailbox.makeEwsRequestAsync(envelope, headerCallback);
     } catch (e) {
-        document.getElementById("headers").innerHTML = "Failed to get headers...";
+        displayError("Failed to get headers.");
     }
 }
 
 function displayHeaders(headers) {
+    headers = headers.replace("\n","<br/>");
     document.getElementById("headers").innerHTML = headers;
 }
 
