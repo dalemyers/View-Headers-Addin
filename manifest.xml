@@ -28,7 +28,7 @@
         </Form>
     </FormSettings>
 
-    <Permissions>ReadItem</Permissions>
+    <Permissions>ReadWriteItem</Permissions>
 
     <Rule xsi:type="RuleCollection" Mode="Or">
         <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
