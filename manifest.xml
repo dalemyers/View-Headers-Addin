@@ -7,7 +7,7 @@
     <DefaultLocale>en-us</DefaultLocale>
     <DisplayName DefaultValue="View Headers"/>
     <Description DefaultValue="View the headers of this email."></Description>
-    <IconUrl DefaultValue="https://addins.myers.io/headers/icon.png"/>
+    <IconUrl DefaultValue="https://vel0x.github.io/View-Headers-Addin/icon.png"/>
 
     <Hosts>
         <Host Name="Mailbox" />
@@ -22,7 +22,7 @@
     <FormSettings>
         <Form xsi:type="ItemRead">
             <DesktopSettings>
-                <SourceLocation DefaultValue="https://addins.myers.io/headers/index.html" />
+                <SourceLocation DefaultValue="https://vel0x.github.io/View-Headers-Addin/index.html" />
                 <RequestedHeight>216</RequestedHeight>
             </DesktopSettings>
         </Form>
