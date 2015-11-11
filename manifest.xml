@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="MailApp">
+    
+    <Id>e99fb974-5e63-4b62-b8b0-6eb9d9048096</Id>
+    <Version>1.0</Version>
+    <ProviderName>Dale Myers</ProviderName>
+    <DefaultLocale>en-us</DefaultLocale>
+    <DisplayName DefaultValue="View Headers"/>
+    <Description DefaultValue="View the headers of this email."></Description>
+    <IconUrl DefaultValue="https://addins.myers.io/headers/icon.png"/>
+
+    <Hosts>
+        <Host Name="Mailbox" />
+    </Hosts>
+
+    <Requirements>
+        <Sets DefaultMinVersion="1.1">
+            <Set Name="Mailbox" />
+        </Sets>
+    </Requirements>
+
+    <FormSettings>
+        <Form xsi:type="ItemRead">
+            <DesktopSettings>
+                <SourceLocation DefaultValue="https://addins.myers.io/headers/index.html" />
+                <RequestedHeight>216</RequestedHeight>
+            </DesktopSettings>
+        </Form>
+    </FormSettings>
+
+    <Permissions>ReadItem</Permissions>
+
+    <Rule xsi:type="RuleCollection" Mode="Or">
+        <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+    </Rule>
+
+</OfficeApp>
