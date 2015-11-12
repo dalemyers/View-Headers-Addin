@@ -4,7 +4,7 @@ This is an [Office
 Add-in](https://msdn.microsoft.com/en-us/library/office/jj220060.aspx) for
 viewing message headers in Outlook. 
 
-#How do I install it?
+##How do I install it?
 
 Until I get around to submitting it to the store, here is what you do:
 
