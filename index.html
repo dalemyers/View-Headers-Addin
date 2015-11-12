@@ -16,9 +16,16 @@
                 });
             }
 
+function escapeHTML(s) { 
+    return s.replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+}
+
 function parseHeadersToHtml(headers) {
 
-    var htmlTable = "<Table><tr><th>Header</th><th>Value</th></tr>";
+    var htmlTable = "<Table>";
 
     var lines = headers.match(/^.*([\n\r]+|$)/gm);
 
@@ -50,6 +57,8 @@ function parseHeadersToHtml(headers) {
     }
 
     for (var i = 0; i < headerList.length; i++) {
+        headersList[i]["header"] = escapeHTML(headersList[i]["header"]);
+        headersList[i]["value"] = escapeHTML(headersList[i]["value"]);
         htmlTable = htmlTable + "<tr><td>" + headerList[i]["header"] + "</td><td>" + headerList[i]["value"] + "</td></tr>"
     }
 
