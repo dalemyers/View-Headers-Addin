@@ -84,7 +84,7 @@ function parseHeadersToHtml(headers) {
     for (var i = 0; i < headerList.length; i++) {
         headerList[i]["header"] = escapeHTML(headerList[i]["header"]);
         headerList[i]["value"] = escapeHTML(headerList[i]["value"]);
-        htmlTable = htmlTable + "<tr><td>" + headerList[i]["header"] + "</td><td>" + headerList[i]["value"] + "</td></tr>"
+        htmlTable = htmlTable + "<tr><td class=\"header_cell\">" + headerList[i]["header"] + "</td><td class=\"value_cell\">" + headerList[i]["value"] + "</td></tr>"
     }
 
     htmlTable = htmlTable + "</Table>";
