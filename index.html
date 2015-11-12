@@ -16,7 +16,57 @@
                 });
             }
 
-            
+function parseHeadersToHtml(headers) {
+
+    var htmlTable = "<Table><tr><th>Header</th><th>Value</th></tr>";
+
+    var lines = headers.match(/^.*([\n\r]+|$)/gm);
+
+    var headerList = [];
+    var iNextHeader = 0;
+    for (var iLine = 0 ; iLine < lines.length ; iLine++) {
+
+        // Recognizing a header:
+        // - First colon comes before first white space.
+        // - We're not strictly honoring white space folding because initial white space.
+        // - is commonly lost. Instead, we heuristically assume that space before colon must have been folded.
+        // This expression will give us:
+        // match[1] - everything before the first colon, assuming no spaces (header).
+        // match[2] - everything after the first colon (value).
+        var match = lines[iLine].match(/(^[\w-\.]*?): ?(.*)/);
+
+        // There's one false positive we might get: if the time in a Received header has been
+        // folded to the next line, the line might start with something like "16:20:05 -0400".
+        // This matches our regular expression. The RFC does not preclude such a header, but I've
+        // never seen one in practice, so we check for and exclude 'headers' that
+        // consist only of 1 or 2 digits.
+        if (match && match[1] && !match[1].match(/^\d{1,2}$/)) {
+            headerList[iNextHeader] = new Header(match[1], match[2]);
+            iNextHeader++;
+        } else {
+            if (iNextHeader > 0) {
+                // Tack this line to the previous line
+                headerList[iNextHeader - 1].value += " " + lines[iLine];
+            } else {
+                // If we didn't have a previous line, go ahead and use this line
+                if (lines[iLine].match(/\S/g)) {
+                    headerList[iNextHeader] = new Header("", lines[iLine]);
+                    iNextHeader++;
+                }
+            }
+        }
+    }
+
+    for (var i = 0; i < headerList.length; i++) {
+        htmlTable = htmlTable + "<tr><td>" + headerList[i].header + "</td><td>" + headerList[i].value + "</td></tr>"
+    }
+
+    htmlTable = htmlTable + "</Table>";
+
+    return escapeHtml(htmlTable);
+}
+
+
 function getSoapEnvelope(request) {
     // Wrap an Exchange Web Services request in a SOAP envelope.
     var result =
@@ -72,8 +122,7 @@ function sendHeadersRequest() {
 
 function displayHeaders(headers) {
     debugger;
-    headers = headers.replace("\n","<br/>");
-    document.getElementById("headers").innerHTML = headers;
+    document.getElementById("headers").innerHTML = parseHeadersToHtml(headers);
 }
 
 function displayError(errorText) {
